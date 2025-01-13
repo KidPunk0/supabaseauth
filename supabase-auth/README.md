@@ -1,93 +1,101 @@
 # Supabase Auth Module
 
-A reusable authentication module for React or Next.js using [Supabase](https://supabase.io/) with magic link sign-in.
+A drop-in authentication module for React or Next.js using [Supabase](https://supabase.io/) with magic link sign-in. This package provides a complete authentication solution with pre-built components and styling.
 
 ## Features
 
-- Magic Link Authentication
-- Protected Routes
-- Authentication Context & Hook
-- TypeScript Support
-- React Router Integration
+- 🔐 Magic Link Authentication
+- 🛡️ Protected Routes
+- 🎨 Pre-styled Auth Page
+- 🔄 Authentication Context & Hook
+- 📱 Responsive Design
+- 🎯 TypeScript Support
+- 🛣️ React Router Integration
 
-## Installation
+## Quick Start
 
 1. Copy the `supabase-auth` folder into your React/Next.js project
-2. Install the required dependencies:
+2. Install the peer dependencies:
 
 ```bash
 npm install @supabase/supabase-js react-router-dom
 ```
 
-## Configuration
-
-1. Create a `.env` file in your project root (or `.env.local` for Next.js):
+3. Create a `.env` file in your project root:
 
 ```env
+# For React
 REACT_APP_SUPABASE_URL=your_supabase_url
 REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
 
-For Next.js, use:
-```env
+# For Next.js
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-2. Wrap your app with the AuthProvider:
+4. Set up your app with the minimum configuration:
 
 ```jsx
 import { AuthProvider } from './supabase-auth/src/components/AuthProvider';
-
-function App() {
-  return (
-    <AuthProvider>
-      <YourApp />
-    </AuthProvider>
-  );
-}
-```
-
-## Usage
-
-### Protected Routes
-
-```jsx
+import { AuthPage } from './supabase-auth/src/pages/AuthPage';
 import { ProtectedRoute } from './supabase-auth/src/components/ProtectedRoute';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <DashboardPage />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/auth" element={<AuthPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <YourDashboardComponent />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 ```
 
-### Magic Link Sign In
+That's it! You now have a fully functional authentication system.
+
+## Components
+
+### AuthPage
+
+A pre-styled authentication page that handles both sign-in and sign-up with magic links.
 
 ```jsx
-import { MagicLinkForm } from './supabase-auth/src/components/MagicLinkForm';
+import { AuthPage } from './supabase-auth/src/pages/AuthPage';
 
-function LoginPage() {
-  return (
-    <div>
-      <h1>Sign In</h1>
-      <MagicLinkForm />
-    </div>
-  );
-}
+// Use in your routes
+<Route path="/auth" element={<AuthPage />} />
 ```
 
-### Using the Auth Hook
+### ProtectedRoute
+
+Protect routes from unauthorized access:
+
+```jsx
+import { ProtectedRoute } from './supabase-auth/src/components/ProtectedRoute';
+
+<Route
+  path="/private"
+  element={
+    <ProtectedRoute>
+      <YourPrivateComponent />
+    </ProtectedRoute>
+  }
+/>
+```
+
+### useAuth Hook
+
+Access authentication state and functions anywhere in your app:
 
 ```jsx
 import { useAuth } from './supabase-auth/src/hooks/useAuth';
@@ -95,11 +103,9 @@ import { useAuth } from './supabase-auth/src/hooks/useAuth';
 function Profile() {
   const { user, signOut } = useAuth();
 
-  if (!user) return null;
-
   return (
     <div>
-      <p>Email: {user.email}</p>
+      <p>Welcome, {user.email}!</p>
       <button onClick={signOut}>Sign Out</button>
     </div>
   );
@@ -119,12 +125,56 @@ supabase-auth/
 │  │  └─ useAuth.js          # Authentication hook
 │  ├─ components/
 │  │  ├─ AuthProvider.jsx    # Auth context provider
-│  │  ├─ ProtectedRoute.jsx  # Protected route wrapper
-│  │  └─ MagicLinkForm.jsx   # Magic link sign-in form
+│  │  └─ ProtectedRoute.jsx  # Protected route wrapper
+│  ├─ pages/
+│  │  └─ AuthPage.jsx        # Pre-styled auth page
+│  └─ utils/
+│     └─ authRedirect.js     # Auth redirect utilities
+├─ example/
+│  └─ App.jsx                # Example implementation
 ├─ package.json
 └─ README.md
 ```
 
+## Customization
+
+### Styling
+
+The `AuthPage` component uses inline styles that you can override by passing a `styles` prop:
+
+```jsx
+<AuthPage
+  styles={{
+    container: {
+      backgroundColor: '#your-color',
+    },
+    button: {
+      backgroundColor: '#your-color',
+    },
+  }}
+/>
+```
+
+### Redirect URLs
+
+Customize where users are redirected after authentication:
+
+```jsx
+<AuthPage redirectUrl="/custom-dashboard" />
+```
+
+## Example Implementation
+
+Check out the `example/App.jsx` file for a complete implementation example.
+
 ## Contributing
 
-Feel free to submit issues and enhancement requests!
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+MIT License - feel free to use this in your projects!

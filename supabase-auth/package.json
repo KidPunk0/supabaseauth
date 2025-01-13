@@ -1,22 +1,35 @@
 {
   "name": "supabase-auth",
   "version": "1.0.0",
-  "description": "Reusable Supabase Auth module for React/Next.js",
+  "description": "Reusable Supabase Auth module for React/Next.js with magic link authentication",
   "main": "src/index.js",
   "scripts": {
-    "start": "echo 'No start script defined here, use in your main project.'"
+    "start": "echo 'No start script defined here, use in your main project.'",
+    "prepare": "npm run build",
+    "build": "echo 'Add your build script here'",
+    "test": "echo 'Add your test script here'"
   },
-  "keywords": [],
+  "keywords": [
+    "supabase",
+    "auth",
+    "react",
+    "nextjs",
+    "magic-link",
+    "authentication"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@supabase/supabase-js": "^2.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.0.0"
+    "@supabase/supabase-js": "^2.0.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react-dom": ">=16.8.0",
+    "react-router-dom": "^6.0.0"
+  },
+  "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.0.0"
   }
 }
