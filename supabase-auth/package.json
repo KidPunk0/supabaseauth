@@ -1,0 +1,22 @@
+{
+  "name": "supabase-auth",
+  "version": "1.0.0",
+  "description": "Reusable Supabase Auth module for React/Next.js",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "echo 'No start script defined here, use in your main project.'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  }
+}
